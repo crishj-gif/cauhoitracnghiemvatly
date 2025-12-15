@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Câu hỏi trắc nghiệm vật lý đại cương 2</title>
+    <title>Câu hỏi trắc nghiệm vật lý đại cương 2 - Luyện tập</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Cấu hình Font và Tailwind -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -18,13 +19,22 @@
             border-color: #4f46e5;
             background-color: #eef2ff;
         }
-        .correct-answer {
-            background-color: #dcfce7; /* green-100 */
-            border-color: #10b981; /* green-500 */
+        /* Class cho đáp án đúng */
+        .correct-answer-ui {
+            background-color: #dcfce7 !important; /* green-100 */
+            border-color: #10b981 !important; /* green-500 */
+            color: #065f46 !important; /* green-800 */
         }
-        .wrong-answer {
-            background-color: #fee2e2; /* red-100 */
-            border-color: #ef4444; /* red-500 */
+        /* Class cho đáp án sai */
+        .wrong-answer-ui {
+            background-color: #fee2e2 !important; /* red-100 */
+            border-color: #ef4444 !important; /* red-500 */
+            color: #991b1b !important; /* red-800 */
+        }
+        /* Disable pointer events for disabled options */
+        .disabled-option {
+            pointer-events: none;
+            opacity: 0.7;
         }
          .logo-container {
             position: absolute;
@@ -40,6 +50,174 @@
             object-fit: contain;
             border-radius: 8px;
         }
+        /* CSS Riêng cho Footer Liên Hệ (Tách từ thẻ <style>) */
+
+/* SC-Contact-Footer: Phần wrapper cố định ở dưới cùng */
+.sc-contact-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999; /* Đảm bảo luôn nổi lên trên */
+    background: rgba(17, 24, 39, 0.85); /* Màu nền tối mờ (Gray 900) */
+    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+/* SC-Footer-Container: Căn giữa nội dung */
+.sc-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Tự xuống dòng trên màn hình nhỏ */
+}
+
+/* Phần chữ bên trái */
+.sc-left-content {
+    color: #9ca3af; /* Gray 400 */
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sc-brand-name {
+    font-weight: bold;
+    background: linear-gradient(to right, #60a5fa, #c084fc); /* Gradient chữ */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Phần nút bấm bên phải */
+.sc-right-content {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Style chung cho các nút (SC-Social-Btn) */
+.sc-social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.sc-social-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* Tooltip hiển thị tên/sdt khi di chuột vào */
+.sc-tooltip {
+    position: absolute;
+    bottom: 50px; /* Hiện phía trên nút */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+ 
+/* Mũi tên nhỏ của tooltip */
+.sc-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+.sc-social-btn:hover .sc-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- MÀU SẮC TỪNG NÚT --- */
+ 
+/* Điện thoại: Xanh lá */
+.btn-phone {
+    background: linear-gradient(135deg, #4ade80, #15803d);
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
+}
+.btn-phone:hover { box-shadow: 0 6px 15px rgba(22, 163, 74, 0.6); }
+
+/* Rung lắc nhẹ cho điện thoại */
+@keyframes sc-wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+.btn-phone:hover i {
+    animation: sc-wiggle 0.3s ease-in-out infinite;
+}
+
+/* Facebook: Xanh dương */
+.btn-facebook {
+    background: linear-gradient(135deg, #18ACFE, #0163E0);
+    box-shadow: 0 4px 10px rgba(1, 99, 224, 0.4);
+}
+.btn-facebook:hover { box-shadow: 0 6px 15px rgba(1, 99, 224, 0.6); }
+
+/* TikTok: Đen xám */
+.btn-tiktok {
+    background: linear-gradient(135deg, #374151, #000000);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    border: 1px solid #4b5563;
+}
+.btn-tiktok:hover { box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); border-color: #ec4899; }
+ 
+/* Instagram: Tím Cam */
+.btn-instagram {
+    background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+    box-shadow: 0 4px 10px rgba(253, 29, 29, 0.4);
+}
+.btn-instagram:hover { box-shadow: 0 6px 15px rgba(253, 29, 29, 0.6); }
+
+/* Responsive cho điện thoại: Xếp dọc nếu cần hoặc căn giữa */
+@media (max-width: 600px) {
+    .sc-footer-container {
+        flex-direction: column-reverse; /* Đảo ngược để icon lên trên, chữ xuống dưới */
+        gap: 10px;
+    }
+    .sc-left-content {
+        font-size: 12px;
+    }
+    .sc-social-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
     </style>
     <!-- Tải MathJax để hiển thị công thức LaTeX -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -59,29 +237,16 @@
 <body class="p-4 md:p-8">
     <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl">
         
-        <h1 class="text-3xl font-bold text-indigo-700 mb-2">BÀI THI TRẮC NGHIỆM VẬT LÝ ĐẠI CƯƠNG 2</h1>
-        
+        <h1 class="text-3xl font-bold text-indigo-700 mb-2">LUYỆN TẬP VẬT LÝ ĐẠI CƯƠNG 2</h1>
+        <p class="text-gray-600 mb-6">Chọn đáp án để xem ngay kết quả và lời giải chi tiết.</p>
 
         <!-- Container chứa các câu hỏi -->
         <form id="quiz-form" class="space-y-8"></form>
 
-        <!-- Nút Nộp bài -->
-        <button id="submit-button" onclick="submitQuiz()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01]">
-            NỘP BÀI THI & XEM KẾT QUẢ
-        </button>
-
-        <!-- Khu vực kết quả -->
-        <div id="results-area" class="mt-10 p-6 bg-yellow-50 border border-yellow-200 rounded-xl shadow-inner hidden">
-            <h2 class="text-2xl font-bold text-yellow-700 mb-3">KẾT QUẢ CỦA BẠN</h2>
-            <p id="score-text" class="text-xl font-semibold text-gray-700"></p>
-            <p class="mt-2 text-sm text-gray-600">Sau khi nộp bài, bạn có thể nhấn vào nút "Xem Đáp Án Chi Tiết" dưới mỗi câu để xem lời giải.</p>
-        </div>
-
     </div>
 
     <script>
-        // Dữ liệu bộ câu hỏi, đáp án và lời giải chi tiết (Đã được trích xuất và giải)
-        // Lưu ý: Các công thức LaTeX đã được sửa đổi và đưa vào chuỗi
+        // Dữ liệu bộ câu hỏi, đáp án và lời giải chi tiết (Giữ nguyên từ file gốc)
         const quizData = [
             {
                 id: 1,
@@ -625,7 +790,7 @@
             },
             {
                 id: 46,
-                question: "Một electron bay vào trong từ trường đều, bỏ qua ảnh hưởng của trọng lực, chọn phát biểu đúng:",
+                question: "Một electron chuyển động trong từ trường đều, bỏ qua ảnh hưởng của trọng lực, chọn phát biểu đúng:",
                 options: {
                     A: "Động năng của electron sẽ tăng dần.",
                     B: "Quỹ đạo của electron luôn là đường xoắn ốc.",
@@ -817,7 +982,6 @@
                 
                 // Tiêu đề câu hỏi
                 let qText = item.question;
-                // Thay thế ký hiệu LaTeX bằng cú pháp MathJax \(...\)
                 qText = qText.replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1.trim()}\\)`);
 
                 questionElement.innerHTML = `
@@ -828,8 +992,10 @@
                         ${Object.keys(item.options).map(key => `
                             <div class="flex items-start">
                                 <input type="radio" id="q${item.id}${key}" name="q${item.id}" value="${key}" 
-                                       class="mt-3 text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-300">
+                                       class="mt-3 text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-300 cursor-pointer"
+                                       onchange="checkAnswer(${item.id}, '${key}')">
                                 <label for="q${item.id}${key}" 
+                                       id="label-q${item.id}${key}"
                                        class="option-label w-full ml-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 transition duration-150 flex items-start">
                                     <span class="font-medium text-gray-700 mr-2">${key}.</span>
                                     <span class="flex-1">${item.options[key].replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1.trim()}\\)`)}</span>
@@ -838,14 +1004,8 @@
                         `).join('')}
                     </div>
                     
-                    <!-- Nút xem đáp án -->
-                    <button type="button" onclick="toggleExplanation(${item.id})" id="btn-toggle-${item.id}" 
-                            class="mt-4 px-4 py-2 text-sm font-medium text-indigo-600 bg-white border border-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-150 shadow-sm disabled:opacity-50"
-                            disabled>
-                        Xem Đáp Án Chi Tiết
-                    </button>
                     <!-- Khu vực hiển thị đáp án chi tiết, ban đầu ẩn -->
-                    <div id="explanation-${item.id}" class="explanation mt-4 p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-lg hidden">
+                    <div id="explanation-${item.id}" class="explanation mt-4 p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-lg hidden animate-fade-in">
                         <p class="text-sm text-emerald-800 font-semibold mb-2">Đáp Án Đúng: ${item.answer}</p>
                         <p class="text-sm text-gray-800">${item.explanation.replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1.trim()}\\)`)}</p>
                     </div>
@@ -853,116 +1013,82 @@
                 form.appendChild(questionElement);
             });
 
-            // Sau khi render xong, cần gọi MathJax để render các công thức
+            // Render MathJax
             MathJax.typesetPromise();
         }
 
-        // Hàm kiểm tra và hiển thị kết quả
-        function submitQuiz() {
-            const form = document.getElementById('quiz-form');
-            const resultsArea = document.getElementById('results-area');
-            let score = 0;
-            const totalQuestions = quizData.length;
+        // Hàm kiểm tra đáp án ngay lập tức
+        function checkAnswer(questionId, selectedValue) {
+            const questionData = quizData.find(q => q.id === questionId);
+            if (!questionData) return;
 
-            quizData.forEach(item => {
-                const questionName = `q${item.id}`;
-                const selectedOption = form.elements[questionName].value;
-                const questionCard = document.getElementById(`question-${item.id}`);
-                
-                // Bật nút xem đáp án
-                document.getElementById(`btn-toggle-${item.id}`).disabled = false;
-                
-                // Loại bỏ các class cũ
-                questionCard.classList.remove('correct-answer', 'wrong-answer', 'border-2');
+            const correctAnswer = questionData.answer;
+            const explanationDiv = document.getElementById(`explanation-${questionId}`);
+            
+            // Hiển thị lời giải
+            explanationDiv.classList.remove('hidden');
+            MathJax.typesetPromise([explanationDiv]); // Render MathJax cho lời giải mới hiện
 
-                // Xử lý logic đúng/sai và tô màu
-                const allLabels = questionCard.querySelectorAll('.option-label');
-                allLabels.forEach(label => label.classList.remove('correct-answer', 'wrong-answer', 'border-2'));
-
-                const correctLabel = questionCard.querySelector(`#${questionName}${item.answer}`).nextElementSibling;
-
-                if (selectedOption === item.answer) {
-                    score++;
-                    questionCard.classList.add('correct-answer', 'border-2');
-                } else {
-                    questionCard.classList.add('wrong-answer', 'border-2');
-                    
-                    // Highlight đáp án sai người dùng đã chọn (nếu có)
-                    if (selectedOption) {
-                        const wrongLabel = questionCard.querySelector(`#${questionName}${selectedOption}`).nextElementSibling;
-                        wrongLabel.classList.add('wrong-answer', 'border-2');
-                    }
-                }
-                
-                // Highlight đáp án đúng
-                correctLabel.classList.add('correct-answer', 'border-2');
+            // Vô hiệu hóa tất cả các lựa chọn của câu này để không chọn lại
+            const radios = document.getElementsByName(`q${questionId}`);
+            radios.forEach(radio => {
+                radio.disabled = true;
+                const label = document.getElementById(`label-${radio.id}`);
+                label.classList.add('disabled-option'); // Thêm style mờ đi
             });
 
-            // Hiển thị kết quả chung
-            resultsArea.classList.remove('hidden');
-            document.getElementById('score-text').innerHTML = `
-                Bạn đã trả lời đúng <span class="text-green-600 font-bold">${score}/${totalQuestions}</span> câu, đạt tỉ lệ ${(score/totalQuestions * 100).toFixed(2)}%.
-            `;
+            // Tô màu đáp án đúng
+            const correctLabel = document.getElementById(`label-q${questionId}${correctAnswer}`);
+            if (correctLabel) {
+                correctLabel.classList.add('correct-answer-ui');
+            }
 
-            // Cuộn lên khu vực kết quả
-            resultsArea.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Hàm hiển thị/ẩn đáp án chi tiết
-        function toggleExplanation(id) {
-            const explanationElement = document.getElementById(`explanation-${id}`);
-            const button = document.getElementById(`btn-toggle-${id}`);
-
-            if (explanationElement.classList.contains('hidden')) {
-                explanationElement.classList.remove('hidden');
-                button.textContent = 'Ẩn Đáp Án Chi Tiết';
-                // Đảm bảo MathJax render lại nếu cần
-                MathJax.typesetPromise([explanationElement]);
-            } else {
-                explanationElement.classList.add('hidden');
-                button.textContent = 'Xem Đáp Án Chi Tiết';
+            // Nếu chọn sai, tô màu đỏ đáp án đã chọn
+            if (selectedValue !== correctAnswer) {
+                const selectedLabel = document.getElementById(`label-q${questionId}${selectedValue}`);
+                if (selectedLabel) {
+                    selectedLabel.classList.add('wrong-answer-ui');
+                }
             }
         }
 
         // Khởi tạo giao diện khi trang tải xong
         window.onload = renderQuiz;
     </script>
-    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            
-            <!-- KHỐI GÓC DƯỚI BÊN TRÁI: Design by Sơn Cris -->
-            <div class="design-by-container mb-6 md:mb-0 text-center md:text-left">
-                <p class="design-by-text text-sm text-gray-400">
-                    Design by <b class="text-white font-semibold tracking-wider">Sơn Cris</b>
-                </p>
-                <p class="text-xs text-gray-600 mt-1">&copy; 2025 Vật lý đại cương 2</p>
-            </div>
-
-            <!-- KHỐI GÓC DƯỚI BÊN PHẢI: 3 thông tin liên hệ theo hàng ngang -->
-            <div class="contact-links-container flex flex-wrap justify-center gap-3 sm:gap-4">
-                
-                <!-- Phone Link (Xanh Green) -->
-                <a href="tel:0327208690" title="Gọi 0327208690" class="footer-link phone-link flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition duration-300 ease-in-out transform hover:scale-105 shadow-md bg-green-600 hover:bg-green-700 text-white">
-                    <!-- Icon Điện thoại -->
-                    <svg class="footer-icon w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M164.9 24.6c-48 0-87.1 39.1-87.1 87.1v278.7c0 48 39.1 87.1 87.1 87.1h182.2c48 0 87.1-39.1 87.1-87.1V111.7c0-48-39.1-87.1-87.1-87.1H164.9zM256 464c-15.4 0-27.9-12.5-27.9-27.9s12.5-27.9 27.9-27.9 27.9 12.5 27.9 27.9-12.5 27.9-27.9 27.9zm135.2-348.8H122.9V392h268.3V115.2z"/></svg>
-                    <span>0327208690</span>
-                </a>
-                
-                <!-- Instagram Link (Hồng) -->
-                <a href="https://www.instagram.com/son_cris3012/" target="_blank" title="Instagram" class="footer-link instagram-link flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition duration-300 ease-in-out transform hover:scale-105 shadow-md bg-pink-600 hover:bg-pink-700 text-white">
-                    <!-- Icon Instagram -->
-                    <svg class="footer-icon w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 12.6C99.2-22.3-22.3 99.2 12.6 224.1l11.2 11.2c19.3 19.3 46.4 30.1 74.5 30.1h145.4c28.1 0 55.2-10.8 74.5-30.1l11.2-11.2C485.6 99.2 364.1-22.3 239.1 12.6L224.1 27.7l-15 42.1c-14.4 40.3-43.7 70.8-82.6 86.6L48.2 168.1C25.3 177.1 8.5 197.6 8.5 221v82c0 23.4 16.8 43.9 39.7 52.9l84.4 32.1c38.9 15.8 68.2 46.3 82.6 86.6l15 42.1 15-42.1c14.4-40.3 43.7-70.8 82.6-86.6l84.4-32.1c22.9-9 39.7-29.5 39.7-52.9v-82c0-23.4-16.8-43.9-39.7-52.9l-84.4-32.1c-38.9-15.8-68.2-46.3-82.6-86.6l-15-42.1L224.1 27.7zM169.1 296.8c-29.4-29.4-29.4-77 0-106.4s77-29.4 106.4 0 29.4 77 0 106.4-77 29.4-106.4 0zm53.2-61.9c-15.5-15.5-15.5-40.7 0-56.2s40.7-15.5 56.2 0 15.5 40.7 0 56.2-40.7 15.5-56.2 0zm117.8 7.3c15.2-15.2 15.2-39.8 0-55s-39.8-15.2-55 0c-15.2 15.2-15.2 39.8 0 55s39.8 15.2 55 0z"/></svg>
-                    <span>Instagram</span>
-                </a>
-                
-                <!-- Facebook Link (Xanh Blue) -->
-                <a href="https://web.facebook.com/sonsadboiz.12" target="_blank" title="Facebook" class="footer-link facebook-link flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition duration-300 ease-in-out transform hover:scale-105 shadow-md bg-blue-600 hover:bg-blue-700 text-white">
-                    <!-- Icon Facebook -->
-                    <svg class="footer-icon w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.37h-51.2v-60.3h51.2v-44.4a76.43 76.43 0 0 1 76.4-76.4h37.7v59.7h-37.7c-25.1 0-25.1 9.2-25.1 25.4v40.7h63.2l-10.1 60.3h-53.1V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
-                    <span>Facebook</span>
-                </a>
-            </div>
+    <footer class="sc-contact-footer">
+    <div class="sc-footer-container">
+        <!-- Góc Trái: Text -->
+        <div class="sc-left-content">
+            <span>Design by <span class="sc-brand-name">Sơn Cris</span></span>
         </div>
-    </footer>
+
+        <!-- Góc Phải: Icons -->
+        <div class="sc-right-content">
+            <!-- SĐT -->
+            <a href="tel:0327208690" class="sc-social-btn btn-phone">
+                <i class="fas fa-phone-alt"></i>
+                <span class="sc-tooltip">0327.208.690</span>
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://web.facebook.com/sonsadboiz.12" target="_blank" class="sc-social-btn btn-facebook">
+                <i class="fab fa-facebook-f"></i>
+                <span class="sc-tooltip">Facebook</span>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@chubodoihaybuon" target="_blank" class="sc-social-btn btn-tiktok">
+                <i class="fab fa-tiktok"></i>
+                <span class="sc-tooltip">TikTok</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/son_cris3012/?__pwa=1" target="_blank" class="sc-social-btn btn-instagram">
+                <i class="fab fa-instagram"></i>
+                <span class="sc-tooltip">Instagram</span>
+            </a>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
