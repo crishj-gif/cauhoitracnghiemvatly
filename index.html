@@ -222,20 +222,42 @@
     <!-- Tải MathJax để hiển thị công thức LaTeX -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<header class="bg-white shadow-md sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-3 flex items-center space-x-4">
-            <!-- Logo đặt ở góc trái cùng -->
-            <a href="/">
-                <img src="https://upload.wikimedia.org/wikipedia/vi/0/0e/Logo_MTA_new.png" alt="Logo MTA" class="website-logo">
-            </a>
-            <!-- H1 nằm ngang hàng với logo -->
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight flex-shrink-0">
-             <p>                     </p> Câu hỏi trắc nghiệm vật lý đại cương 2
-            </h1>
+<header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Khu vực Logo và Tiêu đề -->
+            <div class="flex items-center space-x-4">
+                <!-- Logo đặt ở góc trái cùng -->
+                <a href="/">
+                    <img src="https://upload.wikimedia.org/wikipedia/vi/0/0e/Logo_MTA_new.png" alt="Logo MTA" class="website-logo">
+                </a>
+                <!-- H1 nằm ngang hàng với logo -->
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 tracking-tight flex-shrink-0">
+                 <p class="hidden sm:block"></p> Trắc nghiệm Vật lý ĐC 2
+                </h1>
+            </div>
+
+            <!-- Khu vực Đồng hồ thời gian thực (Góc phải trên cùng) -->
+            <div id="real-time-clock" class="text-right hidden sm:block">
+                <div id="rtc-time" class="text-lg font-bold text-indigo-700"></div>
+                <div id="rtc-date" class="text-xs text-gray-500 font-semibold"></div>
+            </div>
         </div>
-    </header>
-<body class="p-4 md:p-8">
-    <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl">
+</header>
+
+<!-- Thanh đếm ngược -->
+<div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg sticky top-[80px] z-40">
+    <div class="container mx-auto px-4 py-3 text-center">
+        <div class="font-bold text-lg md:text-xl flex flex-col md:flex-row justify-center items-center gap-2">
+            <span><i class="fas fa-clock mr-2"></i>Còn <span id="countdown-timer" class="text-yellow-300 font-mono">Loading...</span> sẽ thi Vật lý đại cương 2</span>
+        </div>
+        <div class="text-sm md:text-base mt-1 text-indigo-100 italic">
+            Chúc bạn thi tốt vào ngày 19/12/2025!
+        </div>
+    </div>
+</div>
+
+<body class="p-4 md:p-8 pb-24">
+    <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl mt-4">
         
         <h1 class="text-3xl font-bold text-indigo-700 mb-2">LUYỆN TẬP VẬT LÝ ĐẠI CƯƠNG 2</h1>
         <p class="text-gray-600 mb-6">Chọn đáp án để xem ngay kết quả và lời giải chi tiết.</p>
@@ -246,6 +268,57 @@
     </div>
 
     <script>
+        // --- LOGIC ĐỒNG HỒ VÀ ĐẾM NGƯỢC ---
+        
+        // 1. Đồng hồ thời gian thực (Góc phải)
+        function updateRealTimeClock() {
+            const now = new Date();
+            const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+            
+            const dayName = days[now.getDay()];
+            const dateStr = now.toLocaleDateString('vi-VN');
+            const timeStr = now.toLocaleTimeString('vi-VN');
+
+            const timeEl = document.getElementById('rtc-time');
+            const dateEl = document.getElementById('rtc-date');
+            
+            if (timeEl && dateEl) {
+                timeEl.innerText = timeStr;
+                dateEl.innerText = `${dayName}, ${dateStr}`;
+            }
+        }
+
+        // 2. Đồng hồ đếm ngược (Banner)
+        function updateCountdown() {
+            // Đặt ngày đích: 14h00 ngày 19/12/2025
+            const targetDate = new Date('2025-12-19T14:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const countdownEl = document.getElementById('countdown-timer');
+
+            if (distance < 0) {
+                countdownEl.innerText = "ĐÃ ĐẾN GIỜ THI!";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Định dạng hiển thị: dd ngày hh giờ mm phút ss giây
+            countdownEl.innerText = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+        }
+
+        // Khởi chạy các đồng hồ
+        setInterval(updateRealTimeClock, 1000);
+        setInterval(updateCountdown, 1000);
+        updateRealTimeClock(); // Chạy ngay lập tức không cần đợi 1s
+        updateCountdown();
+
+        // --- DỮ LIỆU VÀ LOGIC CÂU HỎI (GIỮ NGUYÊN) ---
+
         // Dữ liệu bộ câu hỏi, đáp án và lời giải chi tiết (Giữ nguyên từ file gốc)
         const quizData = [
             {
